@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class AppManifestTest < Minitest::Test
+  def test_App_Manifest_hash
+    manifest = AppManifest(name: 'my-app')
+    assert_equal(manifest.to_hash.fetch(:name), 'my-app')
+  end
+
+  def test_App_Manifest_json
+    manifest = AppManifest('{ "name": "my-app" }')
+    assert_equal(manifest.to_hash.fetch(:name), 'my-app')
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::AppManifest::VERSION
   end

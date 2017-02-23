@@ -2,8 +2,8 @@ module AppManifest
   # A simple model-like wrapper around a manifest hash.
   class Manifest
     def self.from_json(string)
-      hash = MultiJson.parse(string)
-      self.class.new(hash)
+      hash = MultiJson.load(string)
+      self.new(hash)
     end
 
     def initialize(hash)

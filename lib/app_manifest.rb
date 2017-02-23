@@ -1,5 +1,16 @@
+require 'multi_json'
+
 require "app_manifest/version"
 require "app_manifest/manifest"
+
+# Create a new manifest from json string or a hash
+def AppManifest(input)
+  if input.is_a?(Hash)
+    AppManifest::Manifest.new(input)
+  elsif input.is_a?(String)
+    AppManifest::Manifest.from_json(input)
+  end
+end
 
 module AppManifest
   class << self
