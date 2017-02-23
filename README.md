@@ -1,8 +1,7 @@
 # AppManifest
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/app_manifest`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A Ruby Gem for parsing AppManifests according to the [app.json
+schema](https://devcenter.heroku.com/articles/app-json-schema)
 
 ## Installation
 
@@ -22,7 +21,19 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Initialize an app manifest:
+
+```ruby
+AppManifest(name: 'my-app')
+```
+
+Extract an environment configuration:
+```ruby
+manifest = AppManifest(name: 'my-app', environments: { test: { addons: ['beta'] } })
+
+manifest.environment(:test).to_hash
+# => { name: 'my-app', addons: [{ plan: 'beta' }] }
+```
 
 ## Development
 
@@ -32,5 +43,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Josh W Lewis/app_manifest.
+Bug reports and pull requests are welcome on GitHub at https://github.com/heroku/app-manifest.
 
