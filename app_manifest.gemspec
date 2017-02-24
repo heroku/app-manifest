@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'app_manifest/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'app-manifest'
+  spec.name          = 'app_manifest'
   spec.version       = AppManifest::VERSION
   spec.authors       = ['Owen Jacobson', 'Josh W Lewis']
   spec.email         = ['ojacobson@heroku.com', 'jlewis@heroku.com']
