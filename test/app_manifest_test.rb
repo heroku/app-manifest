@@ -50,4 +50,9 @@ class AppManifestTest < Minitest::Test
     }
     assert_equal(canonicalized, expected)
   end
+
+  def test_canonicalize__symbolize
+    canonicalized = AppManifest.canonicalize('env' => { 'foo' => 'bar' })
+    assert_equal(canonicalized, env: { 'foo' => { value: 'bar' } })
+  end
 end

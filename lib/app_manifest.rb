@@ -18,7 +18,8 @@ module AppManifest
     # with canonical serialization. This will resolve shorthands and older
     # serializations into a canonical serialization.
     def canonicalize(manifest)
-      keys_to_sym(manifest)
+      manifest = keys_to_sym(manifest)
+      manifest
         .merge(canonicalize_env(manifest))
         .merge(canonicalize_formation(manifest))
         .merge(canonicalize_addons(manifest))
