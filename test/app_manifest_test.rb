@@ -55,4 +55,11 @@ class AppManifestTest < Minitest::Test
     canonicalized = AppManifest.canonicalize('env' => { 'foo' => 'bar' })
     assert_equal(canonicalized, env: { 'foo' => { value: 'bar' } })
   end
+
+  def test_canonicalize__formation_missing_process
+    canonicalized = AppManifest.canonicalize(
+      'formation' => [{ 'quantity' => 1 }]
+    )
+    assert_equal(canonicalized, formation: {})
+  end
 end
