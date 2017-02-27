@@ -56,8 +56,10 @@ module AppManifest
       canonicalize_key(manifest, :formation) do |formation|
         if formation.is_a? Array
           Hash[
-            formation.map do |entry|
-              process = entry[:process]
+            formation
+            .reject { |entry| entry[:process].to_s.empty? }
+            .map do |entry|
+              process = entry.fetch(:process)
               entry = entry.reject { |k, _| k == :process }
               [process.to_sym, entry]
             end
