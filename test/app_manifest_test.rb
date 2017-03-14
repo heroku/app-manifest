@@ -20,6 +20,17 @@ class AppManifestTest < Minitest::Test
     assert_equal(canonicalized, addons: [{ plan: 'a' }, { plan: 'b' }])
   end
 
+  def test_canonicalizing__addon_shorthand_leave_options_intact
+    canonicalized = AppManifest.canonicalize(addons: [
+      {
+        options: {
+          version: "9.5"
+        }
+      }
+    ])
+    assert_equal(canonicalized, addons: [ options: { version: "9.5" } ])
+  end
+
   def test_canonicalize__env_shorthand
     canonicalized = AppManifest.canonicalize(env: { 'foo' => 'bar' })
     assert_equal(canonicalized, env: { 'foo' => { value: 'bar' } })
