@@ -67,6 +67,25 @@ class AppManifestTest < Minitest::Test
     assert_equal(canonicalized, env: { 'foo' => { value: 'bar' } })
   end
 
+  def test_canonicalize__deep_symbolize_addons
+    canonicalized = AppManifest.canonicalize(
+      'addons' => [{
+        'plan' => 'heroku-postgres:hobby-dev',
+        'options' => {
+          'version' => '9.2'
+        }
+      }]
+    )
+    assert_equal(canonicalized,
+      addons: [{
+        plan: 'heroku-postgres:hobby-dev',
+        options: {
+          version: '9.2'
+        }
+      }]
+    )
+  end
+
   def test_canonicalize__formation_missing_process
     canonicalized = AppManifest.canonicalize(
       'formation' => [{ 'quantity' => 1 }]

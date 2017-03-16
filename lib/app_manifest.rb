@@ -83,7 +83,7 @@ module AppManifest
               plan: entry,
             }
           else
-            entry
+            keys_to_sym(entry)
           end
         end
       end
