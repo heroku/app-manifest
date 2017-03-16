@@ -57,6 +57,7 @@ module AppManifest
         if formation.is_a? Array
           Hash[
             formation
+            .map { |entry| keys_to_sym(entry) }
             .reject { |entry| entry[:process].to_s.empty? }
             .map do |entry|
               process = entry.fetch(:process)

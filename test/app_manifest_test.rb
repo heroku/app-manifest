@@ -86,6 +86,39 @@ class AppManifestTest < Minitest::Test
     )
   end
 
+  def test_canonicalize__deep_symbolize_formation
+    canonicalized = AppManifest.canonicalize(
+      'formation' => {
+        'web' => {
+          'quantity' => 1
+        }
+      }
+    )
+    assert_equal(canonicalized,
+      formation: {
+        web:{
+          quantity: 1
+        }
+      }
+    )
+  end
+
+  def test_canonicalize__deep_symbolize_legacy_formation
+    canonicalized = AppManifest.canonicalize(
+      'formation' => [{
+        'process' => 'web',
+        'quantity' => 1
+      }]
+    )
+    assert_equal(canonicalized,
+      formation: {
+        web:{
+          quantity: 1
+        }
+      }
+    )
+  end
+
   def test_canonicalize__formation_missing_process
     canonicalized = AppManifest.canonicalize(
       'formation' => [{ 'quantity' => 1 }]
