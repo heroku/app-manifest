@@ -7,9 +7,9 @@ class AppManifest::ManifestTest < MiniTest::Test
   end
 
   def test_initialize__canonicalizes_hash
-    manifest = AppManifest::Manifest.new(env: { 'BAR' => 'BAZ' })
+    manifest = AppManifest::Manifest.new(env: { 'BAR' => 'BAZ', 'FOO' => true })
     env = manifest.to_hash.fetch(:env)
-    assert_equal(env, 'BAR' => { value: 'BAZ' })
+    assert_equal(env, 'BAR' => { value: 'BAZ' }, 'FOO' => { value: 'true' })
   end
 
   def test_environment__when_present

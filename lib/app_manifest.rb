@@ -36,9 +36,9 @@ module AppManifest
       canonicalize_key(manifest, :env) do |env|
         Hash[
           env.map do |key, value|
-            if value.is_a? String
+            if !value.is_a?(Hash)
               value = {
-                value: value,
+                value: value.to_s,
               }
             end
             [key.to_s, value]
