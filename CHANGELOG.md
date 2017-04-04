@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## Unreleased
-## [0.2.0] = 2017-03-17
+### Fixed
+- Prevent `NoMethodError on TrueClass` when a `true` or `false` environment variable is provided.
+
+## [0.2.0] - 2017-03-17
 ### Fixed
 - Addon keys are now deep symbolized.
 - Legacy formations are not rejected when keys are strings
