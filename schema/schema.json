@@ -1,0 +1,47 @@
+{
+  "type": [
+    "object"
+  ],
+  "definitions": {
+    "app-manifest": {
+      "title": "App Manifest",
+      "description": "Describes an app manifest in the app.json format",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/app-manifest/definitions/name"
+            }
+          ]
+        },
+        "name": {
+          "description": "A clean and simple name to identify the template",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/app-manifest/definitions/name"
+        }
+      }
+    }
+  },
+  "properties": {
+    "app-manifest": {
+      "$ref": "#/definitions/app-manifest"
+    }
+  },
+  "description": "App.json manifest format",
+  "id": "app-manifest",
+  "title": "App.json manifest format"
+}
