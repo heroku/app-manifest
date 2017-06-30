@@ -1,4 +1,7 @@
 {
+  "description": "App.json manifest format",
+  "id": "app-manifest",
+  "title": "App.json manifest format",
   "type": [
     "object"
   ],
@@ -21,27 +24,58 @@
         },
         "name": {
           "description": "A clean and simple name to identify the template",
-          "readOnly": true,
-          "type": [
-            "string"
-          ]
+          "type": "string"
+        },
+        "addon_plan": {
+          "description": "The add-on and plan to provision. This should should be in the format addon:plan or addon. If plan is omitted, that addon’s default plan will be provisioned",
+          "type": "string"
+        },
+        "addon": {
+          "description": "A single Heroku add-on definition",
+          "type": "object",
+          "definitions": {
+            "plan": {
+              "$ref": "#/definitions/app-manifest/definitions/addon_plan"
+            },
+            "as": {
+              "description": "The attachment name for the new add-on. If the attachment name is omitted, the add-on will be attached using its default name",
+              "type": "string"
+            },
+            "options": {
+              "description": "Any add-on-specific options (for example, the database version to provision with Heroku PostgreSQL). Keys correspond to option names from the add-on’s documentation. Values correspond to add-on option values, and should be strings. For options that do not take a value, use the value true",
+              "type": "object"
+            }
+          }
+        },
+        "addons": {
+          "description": "An array of strings or objects specifying Heroku add-ons to provision on the app before deploying",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/app-manifest/definitions/addon_plan"
+              },
+              {
+                "$ref": "#/definitions/app-manifest/definitions/addon"
+              }
+            ]
+          }
         }
       },
-      "links": [
-      ],
       "properties": {
         "name": {
           "$ref": "#/definitions/app-manifest/definitions/name"
+        },
+        "addons": {
+          "$ref": "#/definitions/app-manifest/definitions/addons"
         }
       }
     }
   },
   "properties": {
+    "additionalProperties": false,
     "app-manifest": {
       "$ref": "#/definitions/app-manifest"
     }
-  },
-  "description": "App.json manifest format",
-  "id": "app-manifest",
-  "title": "App.json manifest format"
+  }
 }

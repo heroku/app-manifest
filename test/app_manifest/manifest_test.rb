@@ -25,4 +25,11 @@ class AppManifest::ManifestTest < MiniTest::Test
     foo_manifest = manifest.environment(:foo)
     assert_equal(foo_manifest.to_hash.fetch(:addons), [plan: 'a'])
   end
+
+  def test_validate
+    hash = { name33: "foo" }
+    manifest = AppManifest::Manifest.new(hash)
+    manifest.validate
+    assert_empty manifest.errors
+  end
 end

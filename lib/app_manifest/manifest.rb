@@ -1,3 +1,4 @@
+
 module AppManifest
   # A simple model-like wrapper around a manifest hash.
   class Manifest
@@ -6,8 +7,18 @@ module AppManifest
       self.new(hash)
     end
 
+    attr_reader :errors
+
     def initialize(hash)
       @manifest = AppManifest.canonicalize(hash)
+    end
+
+    def validate
+      @errors = AppManifest::Schema.validate(@manifest)
+    end
+
+    def validate!
+
     end
 
     def environment(name)

@@ -2,6 +2,7 @@ require 'multi_json'
 
 require "app_manifest/version"
 require "app_manifest/manifest"
+require "app_manifest/schema"
 
 # Create a new manifest from json string or a hash
 def AppManifest(input)
