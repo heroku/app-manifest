@@ -5,49 +5,83 @@ title: App.json manifest format
 type:
 - object
 definitions:
-  app-manifest:
-    title: App Manifest
-    description: Describes an app manifest in the app.json format
-    stability: prototype
-    strictProperties: true
-    type:
-    - object
+  identity:
+    anyOf:
+    - "$ref": "#/definitions/name"
+  name:
+    description: A clean and simple name to identify the template
+    type: string
+  addon_plan:
+    description: The add-on and plan to provision. This should should be in the format addon:plan or addon. If plan is omitted, that addon’s default plan will be provisioned
+    type: string
+  addon:
+    description: A single Heroku add-on definition
+    type: object
     definitions:
-      identity:
-        anyOf:
-        - "$ref": "#/definitions/app-manifest/definitions/name"
-      name:
-        description: A clean and simple name to identify the template
+      plan:
+        "$ref": "#/definitions/addon_plan"
+      as:
+        description: The attachment name for the new add-on. If the attachment name is omitted, the add-on will be attached using its default name
         type: string
-      addon_plan:
-        description: The add-on and plan to provision. This should should be in the format addon:plan or addon. If plan is omitted, that addon’s default plan will be provisioned
-        type: string
-      addon:
-        description: A single Heroku add-on definition
+      options:
+        description: Any add-on-specific options (for example, the database version to provision with Heroku PostgreSQL). Keys correspond to option names from the add-on’s documentation. Values correspond to add-on option values, and should be strings. For options that do not take a value, use the value true
         type: object
-        definitions:
-          plan:
-            "$ref": "#/definitions/app-manifest/definitions/addon_plan"
-          as:
-            description: The attachment name for the new add-on. If the attachment name is omitted, the add-on will be attached using its default name
-            type: string
-          options:
-            description: Any add-on-specific options (for example, the database version to provision with Heroku PostgreSQL). Keys correspond to option names from the add-on’s documentation. Values correspond to add-on option values, and should be strings. For options that do not take a value, use the value true
-            type: object
-      addons:
-        description: An array of strings or objects specifying Heroku add-ons to provision on the app before deploying
-        type: array
-        items:
-          anyOf:
-            - "$ref": "#/definitions/app-manifest/definitions/addon_plan"
-            - "$ref": "#/definitions/app-manifest/definitions/addon"
     properties:
-      name:
-        "$ref": "#/definitions/app-manifest/definitions/name"
-      addons:
-        "$ref": "#/definitions/app-manifest/definitions/addons"
-
+      plan:
+        "$ref": "#/definitions/addon/definitions/plan"
+      as:
+        "$ref": "#/definitions/addon/definitions/as"
+      options:
+        "$ref": "#/definitions/addon/definitions/options"
+    required:
+      - plan
+  addons:
+    description: An array of strings or objects specifying Heroku add-ons to provision on the app before deploying
+    type: array
+    items:
+      anyOf:
+        - "$ref": "#/definitions/addon_plan"
+        - "$ref": "#/definitions/addon"
+  buildpack:
+    description: An object with a URL field where a buildpack can be downloaded from
+    definitions:
+      url:
+        description: The URL where the buildpack can be downloaded or cloned from
+        type: string
+    properties:
+      url:
+        "$ref": "#/definitions/buildpack/definitions/url"
+    required:
+      - url
+  buildpacks:
+    description: An array of objects specifying the buildpacks needed to build the app. Each buildpack object must contain a url field where the buildpack can be downloaded or cloned from
+    type: array
+    items:
+      "$ref": "#/definitions/buildpack"
+  # TODO: how to define varialbe property names?
+  env:
+    description: A key-value object for config variables to add to the app’s runtime environment
+    type: object
+  # TODO: nested values
+  environments:
+    description: A key-value object holding environment-specific overrides for app.json keys
+    definitions:
+      test:
+        description: Applied to continuous integration environments created by Heroku CI
+        type: object
+  # TODO: how to specify variable property names?
+  formation:
+    description: A key-value object for process type configuration. Keys are the names of the process types
 properties:
-  additionalProperties: false
-  app-manifest:
-    "$ref": "#/definitions/app-manifest"
+  name:
+    "$ref": "#/definitions/name"
+  addons:
+    "$ref": "#/definitions/addons"
+  buildpacks:
+    "$ref": "#/definitions/buildpacks"
+  env:
+    "$ref": "#/definitions/env"
+  environments:
+    "$ref": "#/definitions/environments"
+  formation:
+    "$ref": "#/definitions/formation"

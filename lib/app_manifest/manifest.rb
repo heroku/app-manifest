@@ -14,11 +14,19 @@ module AppManifest
     end
 
     def validate
-      @errors = AppManifest::Schema.validate(@manifest)
+      schema.validate
     end
 
     def validate!
 
+    end
+
+    def errors
+      schema.errors
+    end
+
+    def valid?
+      schema.valid
     end
 
     def environment(name)
@@ -33,5 +41,9 @@ module AppManifest
     private
 
     attr_reader :manifest
+
+    def schema
+      @schema ||= AppManifest::Schema.new(manifest)
+    end
   end
 end
