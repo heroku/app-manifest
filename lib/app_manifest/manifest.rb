@@ -1,6 +1,18 @@
 module AppManifest
   # A simple model-like wrapper around a manifest hash.
   class Manifest
+    include Virtus.model
+
+    attribute :name,        String
+    attribute :description, String
+    attribute :image,       String
+    attribute :keywords,    Array[String]
+    attribute :logo,        String
+    attribute :repository,  String
+    attribute :stack,       String
+    attribute :success_url, String
+    attribute :website,     String
+
     def self.from_json(string)
       hash = MultiJson.load(string)
       self.new(hash)
@@ -8,6 +20,8 @@ module AppManifest
 
     def initialize(hash)
       @manifest = AppManifest.canonicalize(hash)
+      super(@manifest)
+      @manifest
     end
 
     def environment(name)

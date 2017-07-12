@@ -1,4 +1,5 @@
 require 'multi_json'
+require 'virtus'
 
 require "app_manifest/version"
 require "app_manifest/manifest"
