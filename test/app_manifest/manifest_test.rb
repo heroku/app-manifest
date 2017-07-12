@@ -61,5 +61,13 @@ module AppManifest
       assert_kind_of(String, manifest.env.keys.first)
       assert_kind_of(Env, manifest.env.values.first)
     end
+
+    def test_manifest_formation
+      manifest = Manifest.new(formation: { 'web' => { quantity: 1 } })
+
+      assert_kind_of(Hash, manifest.formation)
+      assert_kind_of(String, manifest.formation.keys.first)
+      assert_kind_of(Formation, manifest.formation.values.first)
+    end
   end
 end
