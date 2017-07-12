@@ -5,6 +5,7 @@ require "app_manifest/version"
 require "app_manifest/addon"
 require "app_manifest/buildpack"
 require "app_manifest/env"
+require "app_manifest/formation"
 require "app_manifest/manifest"
 
 # Create a new manifest from json string or a hash
