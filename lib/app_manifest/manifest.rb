@@ -13,6 +13,8 @@ module AppManifest
     attribute :success_url, String
     attribute :website,     String
 
+    attribute :addons, Array[Addon]
+
     def self.from_json(string)
       hash = MultiJson.load(string)
       self.new(hash)

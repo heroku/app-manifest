@@ -39,5 +39,12 @@ module AppManifest
       assert_equal(manifest.keywords, %w(awesome 9000))
       assert_nil(manifest.website)
     end
+
+    def test_manifest_addons
+      manifest = Manifest.new(addons: [{ plan: 'heroku-postgresql' }])
+
+      assert_kind_of(Array, manifest.addons)
+      assert_kind_of(Addon, manifest.addons.first)
+    end
   end
 end
