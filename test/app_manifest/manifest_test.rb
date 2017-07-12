@@ -1,7 +1,11 @@
 require 'test_helper'
 
 module AppManifest
-  class ManifestTest < MiniTest::Test
+  class ManifestTest < EnvironmentTest
+    def environment_class
+      Manifest
+    end
+
     def test_initialize
       manifest = AppManifest::Manifest.new(name: 'my-app')
       assert_kind_of(AppManifest::Manifest, manifest)
@@ -25,49 +29,6 @@ module AppManifest
       manifest = AppManifest::Manifest.new(hash)
       foo_manifest = manifest.environment(:foo)
       assert_equal(foo_manifest.to_hash.fetch(:addons), [plan: 'a'])
-    end
-
-    def test_flat_attributes
-      manifest = Manifest.new(
-        name: 'my-awesome-app',
-        description: 'super duper awesome',
-        keywords: ['awesome', 9000]
-      )
-
-      assert_equal(manifest.name, 'my-awesome-app')
-      assert_equal(manifest.description, 'super duper awesome')
-      assert_equal(manifest.keywords, %w(awesome 9000))
-      assert_nil(manifest.website)
-    end
-
-    def test_manifest_addons
-      manifest = Manifest.new(addons: [{ plan: 'heroku-postgresql' }])
-
-      assert_kind_of(Array, manifest.addons)
-      assert_kind_of(Addon, manifest.addons.first)
-    end
-
-    def test_manifest_buildpacks
-      manifest = Manifest.new(buildpacks: [{ url: 'heroku/ruby' }])
-
-      assert_kind_of(Array, manifest.buildpacks)
-      assert_kind_of(Buildpack, manifest.buildpacks.first)
-    end
-
-    def test_manifest_env
-      manifest = Manifest.new(env: { 'FOO' => { value: 'bar' } })
-
-      assert_kind_of(Hash, manifest.env)
-      assert_kind_of(String, manifest.env.keys.first)
-      assert_kind_of(Env, manifest.env.values.first)
-    end
-
-    def test_manifest_formation
-      manifest = Manifest.new(formation: { 'web' => { quantity: 1 } })
-
-      assert_kind_of(Hash, manifest.formation)
-      assert_kind_of(String, manifest.formation.keys.first)
-      assert_kind_of(Formation, manifest.formation.values.first)
     end
   end
 end
