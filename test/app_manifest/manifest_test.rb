@@ -53,5 +53,13 @@ module AppManifest
       assert_kind_of(Array, manifest.buildpacks)
       assert_kind_of(Buildpack, manifest.buildpacks.first)
     end
+
+    def test_manifest_env
+      manifest = Manifest.new(env: { 'FOO' => { value: 'bar' } })
+
+      assert_kind_of(Hash, manifest.env)
+      assert_kind_of(String, manifest.env.keys.first)
+      assert_kind_of(Env, manifest.env.values.first)
+    end
   end
 end

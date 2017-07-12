@@ -15,6 +15,7 @@ module AppManifest
 
     attribute :addons,     Array[Addon]
     attribute :buildpacks, Array[Buildpack]
+    attribute :env,        Hash[String => Env]
 
     def self.from_json(string)
       hash = MultiJson.load(string)
