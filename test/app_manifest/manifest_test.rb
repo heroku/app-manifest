@@ -46,5 +46,12 @@ module AppManifest
       assert_kind_of(Array, manifest.addons)
       assert_kind_of(Addon, manifest.addons.first)
     end
+
+    def test_manifest_buildpacks
+      manifest = Manifest.new(buildpacks: [{ url: 'heroku/ruby' }])
+
+      assert_kind_of(Array, manifest.buildpacks)
+      assert_kind_of(Buildpack, manifest.buildpacks.first)
+    end
   end
 end
