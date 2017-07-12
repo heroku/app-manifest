@@ -30,5 +30,14 @@ module AppManifest
       foo_manifest = manifest.environment(:foo)
       assert_equal(foo_manifest.to_hash.fetch(:addons), [plan: 'a'])
     end
+
+    def test_environments
+      hash = { environments: { test: { addons: [{ plan: 'a' }] } } }
+      manifest = Manifest.new(hash)
+
+      assert_kind_of(Hash, manifest.environments)
+      assert_kind_of(String, manifest.environments.keys.first)
+      assert_kind_of(Environment, manifest.environments.values.first)
+    end
   end
 end

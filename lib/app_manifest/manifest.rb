@@ -3,6 +3,8 @@ module AppManifest
   class Manifest < Environment
     include Virtus.model
 
+    attribute :environments, Hash[String => Environment]
+
     def self.from_json(string)
       hash = MultiJson.load(string)
       self.new(hash)
@@ -17,10 +19,6 @@ module AppManifest
     def environment(name)
       env_manifest = manifest.fetch(:environments, {}).fetch(name, {})
       self.class.new(manifest.merge(env_manifest))
-    end
-
-    def to_hash
-      manifest
     end
 
     private
