@@ -13,9 +13,8 @@ module AppManifest
 
     def test_initialize__canonicalizes_hash
       manifest = AppManifest::Manifest.new(env: { 'BAR' => 'BAZ' })
-      env = manifest.env.values.first
-      assert_kind_of(Env, env)
-      assert_equal('BAZ', env.value)
+      env = manifest.to_hash.fetch(:env)
+      assert_equal(env, 'BAR' => { value: 'BAZ' })
     end
 
     def test_environment__when_present
