@@ -13,9 +13,9 @@ module AppManifest
 
     def test_initialize__canonicalizes_hash
       manifest = AppManifest::Manifest.new(env: { 'BAR' => 'BAZ' })
-      env = manifest.to_hash.fetch(:env)
-      assert_kind_of(Env, env['BAR'])
-      assert_equal('BAZ', env['BAR'].value)
+      env = manifest.env.values.first
+      assert_kind_of(Env, env)
+      assert_equal('BAZ', env.value)
     end
 
     def test_environment__when_present
@@ -42,17 +42,16 @@ module AppManifest
       assert_kind_of(Environment, manifest.environments.values.first)
     end
 
-
     def test_to_hash
       hash = { 
-        name: "foo",
+        name: 'foo',
         environments: {
-          test: {
-            addons: [{ plan: "heroku-postgresql"}]
+          'test' => {
+            addons: [{ plan: 'heroku-postgresql'}]
           }
         },
         scripts: {
-          postdeploy: "echo 'success'"
+          'postdeploy' => "echo 'success'"
         },
         buildpacks: [
           { url: "heroku-ruby" }

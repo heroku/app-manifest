@@ -7,14 +7,13 @@ module AppManifest
           hash[key] = value.map { |v| hasherate(v) } unless value.empty?
         when Hash
           unless value.empty?
-            hash[key] = value.each_with_object({}) do |(k,v), h|
+            hash[key] = value.each_with_object({}) do |(k, v), h|
               h[k] = hasherate(v)
             end
           end
         else
           hash[key] = hasherate(value) unless value.nil?
         end
-        puts hash
       end
     end
 
