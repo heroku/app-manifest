@@ -8,13 +8,12 @@ module AppManifest
 
     def self.from_json(string)
       hash = MultiJson.load(string)
-      self.new(hash)
+      new(hash)
     end
 
     def initialize(hash)
       @manifest = AppManifest.canonicalize(hash)
       super(@manifest)
-      @manifest
     end
 
     def environment(name)
