@@ -48,5 +48,13 @@ module AppManifest
       assert_kind_of(String, environment.formation.keys.first)
       assert_kind_of(Formation, environment.formation.values.first)
     end
+
+    def test_environment_scripts
+      environment = environment_class.new(scripts: { 'shoot' => "echo 'bang'" })
+
+      assert_kind_of(Hash, environment.scripts)
+      assert_kind_of(String, environment.scripts.keys.first)
+      assert_kind_of(String, environment.scripts.values.first)
+    end
   end
 end
