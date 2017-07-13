@@ -1,7 +1,7 @@
 module AppManifest
   class Formation
     include Virtus.model
-    include Hasherator
+    include Serializer
 
     attribute :quantity, Integer
     attribute :size,     String

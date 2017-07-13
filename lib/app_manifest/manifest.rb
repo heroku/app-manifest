@@ -2,7 +2,7 @@ module AppManifest
   # A simple model-like wrapper around a manifest hash.
   class Manifest < Environment
     include Virtus.model
-    include Hasherator
+    include Serializer
 
     attribute :environments, Hash[String => Environment]
 

@@ -1,7 +1,7 @@
 module AppManifest
   class Addon
     include Virtus.model
-    include Hasherator
+    include Serializer
 
     attribute :plan,    String
     attribute :as,      String

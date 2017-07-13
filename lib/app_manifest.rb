@@ -2,7 +2,7 @@ require 'multi_json'
 require 'virtus'
 
 require "app_manifest/version"
-require "app_manifest/hasherator"
+require "app_manifest/serializer"
 require "app_manifest/addon"
 require "app_manifest/buildpack"
 require "app_manifest/env"

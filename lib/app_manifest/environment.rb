@@ -1,7 +1,7 @@
 module AppManifest
   class Environment
     include Virtus.model
-    include Hasherator
+    include Serializer
 
     attribute :name,        String
     attribute :description, String
