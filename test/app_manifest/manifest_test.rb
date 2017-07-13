@@ -41,5 +41,27 @@ module AppManifest
       assert_kind_of(String, manifest.environments.keys.first)
       assert_kind_of(Environment, manifest.environments.values.first)
     end
+
+
+    def test_to_hash
+      hash = { 
+        name: "foo",
+        environments: {
+          test: {
+            addons: [{ plan: "heroku-postgresql"}]
+          }
+        },
+        scripts: {
+          postdeploy: "echo 'success'"
+        },
+        buildpacks: [
+          { url: "heroku-ruby" }
+        ]
+      }
+
+      manifest = Manifest.new(hash)
+
+      assert_equal(hash, manifest.to_hash)
+    end
   end
 end

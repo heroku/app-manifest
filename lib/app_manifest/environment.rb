@@ -1,6 +1,7 @@
 module AppManifest
   class Environment
     include Virtus.model
+    include Hasherator
 
     attribute :name,        String
     attribute :description, String
