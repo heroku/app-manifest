@@ -20,16 +20,15 @@ module AppManifest
     def test_environment__when_present
       hash = { environments: { test: { addons: [{ plan: 'a' }] } } }
       manifest = AppManifest::Manifest.new(hash)
-      test_addons = manifest.environment(:test).addons
-      assert_kind_of(Addon, test_addons.first)
-      assert_equal('a', test_addons.first.plan)
+      test_manifest = manifest.environment(:test)
+      assert_equal(test_manifest.to_hash.fetch(:addons), [plan: 'a'])
     end
 
     def test_environment__when_missing
       hash = { addons: [{ plan: 'a' }] }
       manifest = AppManifest::Manifest.new(hash)
-      foo_addons = manifest.environment(:foo).addons
-      assert_equal('a', foo_addons.first.plan)
+      foo_manifest = manifest.environment(:foo)
+      assert_equal(foo_manifest.to_hash.fetch(:addons), [plan: 'a'])
     end
 
     def test_environments
