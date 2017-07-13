@@ -17,8 +17,9 @@ module AppManifest
     end
 
     def environment(name)
-      env_manifest = manifest.fetch(:environments, {}).fetch(name, {})
-      self.class.new(manifest.merge(env_manifest))
+      scoped_data = environments.fetch(name.to_s, {}).to_hash
+      global_data = to_hash
+      Environment.new(global_data.merge(scoped_data))
     end
 
     private
