@@ -1,4 +1,5 @@
 module AppManifest
+  # Serialization logic for AppManifest models
   module Serializer
     def self.serialize(value)
       case value
