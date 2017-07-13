@@ -12,8 +12,8 @@ module AppManifest
     end
 
     def initialize(hash)
-      @manifest = AppManifest.canonicalize(hash)
-      super(@manifest)
+      canonicalized = AppManifest.canonicalize(hash)
+      super(canonicalized)
     end
 
     def environment(name)
@@ -21,9 +21,5 @@ module AppManifest
       global_data = to_hash
       Environment.new(global_data.merge(scoped_data))
     end
-
-    private
-
-    attr_reader :manifest
   end
 end
