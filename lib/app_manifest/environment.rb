@@ -17,5 +17,6 @@ module AppManifest
     attribute :buildpacks, Array[Buildpack]
     attribute :env,        Hash[String => Env]
     attribute :formation,  Hash[String => Formation]
+    attribute :scripts,    Hash[String => String]
   end
 end
