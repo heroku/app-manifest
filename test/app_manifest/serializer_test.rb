@@ -29,9 +29,9 @@ module AppManifest
     def test_serialize_virtus_model_with_hash
       widget_class = Class.new
       widget_class.include(Virtus.model)
-      widget_class.attribute(:sizes, Hash[Symbol => Integer])
-      widget_class.attribute(:options, Hash[String => String])
-      widget = widget_class.new(sizes: { small: 4 }, options: {})
+      widget_class.attribute(:sizes, Hash[Symbol => Integer], default: nil)
+      widget_class.attribute(:options, Hash[String => String], default: nil)
+      widget = widget_class.new(sizes: { small: 4 })
 
       expected = { sizes: { small: 4 } }
       actual   = Serializer.serialize(widget)
@@ -39,12 +39,12 @@ module AppManifest
       assert_equal(expected, actual)
     end
 
-    def test_serialize_model_with_array
+    def test_serialize_model_with_nullable_array
       widget_class = Class.new
       widget_class.include(Virtus.model)
-      widget_class.attribute(:sizes, Array[Symbol])
-      widget_class.attribute(:options, Array[String])
-      widget = widget_class.new(sizes: %i(small medium large), options: [])
+      widget_class.attribute(:sizes, NullableArray[Symbol])
+      widget_class.attribute(:options, NullableArray[String])
+      widget = widget_class.new(sizes: %i(small medium large))
 
       expected = { sizes: %i(small medium large) }
       actual   = Serializer.serialize(widget)

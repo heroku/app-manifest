@@ -4,7 +4,7 @@ module AppManifest
     include Virtus.model
     include Serializer
 
-    attribute :environments, Hash[String => Environment]
+    attribute :environments, Hash[String => Environment], default: nil
 
     def self.from_json(string)
       hash = MultiJson.load(string)
@@ -17,7 +17,7 @@ module AppManifest
     end
 
     def environment(name)
-      scoped_data = environments.fetch(name.to_s, {}).to_hash
+      scoped_data = (environments || {}).fetch(name.to_s, {}).to_hash
       global_data = to_hash
       Environment.new(global_data.merge(scoped_data))
     end

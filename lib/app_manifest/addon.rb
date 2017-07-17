@@ -5,6 +5,6 @@ module AppManifest
 
     attribute :plan,    String
     attribute :as,      String
-    attribute :options, Hash
+    attribute :options, Hash[String => String], default: nil
   end
 end

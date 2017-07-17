@@ -14,12 +14,7 @@ module AppManifest
       else
         if value.respond_to?(:attributes)
           value.attributes.each_with_object({}) do |(key, val), hash|
-            case val
-            when Array, Hash
-              hash[key] = serialize(val) unless val.empty?
-            else
-              hash[key] = serialize(val) unless val.nil?
-            end
+            hash[key] = serialize(val) unless val.nil?
           end
         else
           val.to_s

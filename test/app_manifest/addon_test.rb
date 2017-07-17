@@ -11,7 +11,7 @@ module AppManifest
 
       assert_equal(addon.plan, 'foo:bar')
       assert_equal(addon.as, 'baz')
-      assert_equal(addon.options, version: 9000)
+      assert_equal(addon.options, { 'version' => '9000' })
     end
   end
 end
