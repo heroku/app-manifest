@@ -1,7 +1,9 @@
 require 'test_helper'
+require 'support/environment_tests'
 
 module AppManifest
-  class ManifestTest < EnvironmentTest
+  class ManifestTest < MiniTest::Test
+    include EnvironmentTests
     def environment_class
       Manifest
     end
