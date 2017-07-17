@@ -8,6 +8,7 @@ require "app_manifest/addon"
 require "app_manifest/buildpack"
 require "app_manifest/env"
 require "app_manifest/formation"
+require "app_manifest/environment_attributes"
 require "app_manifest/environment"
 require "app_manifest/manifest"
 
