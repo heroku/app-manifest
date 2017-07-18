@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.3.0] - 2017-06-18
+
 ### Added
 - Manifests are now fully modeled. There are now getters and setters for
   nested data (for example: `manifest.addons.first.plan`).
