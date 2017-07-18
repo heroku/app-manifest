@@ -1,26 +1,26 @@
 module AppManifest
   # A simple model-like wrapper around a manifest hash.
   class Manifest
+    include Virtus.model
+    include EnvironmentAttributes
+    include Serializer
+
+    attribute :environments, Hash[String => Environment], default: nil
+
     def self.from_json(string)
       hash = MultiJson.load(string)
-      self.new(hash)
+      new(hash)
     end
 
     def initialize(hash)
-      @manifest = AppManifest.canonicalize(hash)
+      canonicalized = AppManifest.canonicalize(hash)
+      super(canonicalized)
     end
 
     def environment(name)
-      env_manifest = manifest.fetch(:environments, {}).fetch(name, {})
-      self.class.new(manifest.merge(env_manifest))
+      scoped_data = (environments || {}).fetch(name.to_s, {}).to_hash
+      global_data = to_hash
+      Environment.new(global_data.merge(scoped_data))
     end
-
-    def to_hash
-      manifest
-    end
-
-    private
-
-    attr_reader :manifest
   end
 end

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+- Manifests are now fully modeled. There are now getters and setters for
+  nested data (for example: `manifest.addons.first.plan`).
+
+### Changed
+- `Manifest#to_hash` now returns a hash for the current manifest state, rather
+  than the hash that was passed in.
+- `Manifest#environment` now returns an `Environment` instance, as a result,
+  it's serialization will not include nested `environments` data.
+
+### Removed
+- `Manifest#manifest` was removed as it was superfluous and potentially 
+  confusing. `Manifest#to_hash` may be a suitable replacement.
+
 ## [0.2.1] - 2017-04-04
 ### Fixed
 - Prevent `NoMethodError on TrueClass` when a `true` or `false` environment variable is provided.
