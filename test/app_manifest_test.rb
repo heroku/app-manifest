@@ -41,6 +41,11 @@ class AppManifestTest < Minitest::Test
     assert_equal(canonicalized, env: { 'foo' => { value: true } })
   end
 
+  def test_canonicalize__env_shorthand_integer
+    canonicalized = AppManifest.canonicalize(env: { 'bar' => 5 })
+    assert_equal(canonicalized, env: { 'bar' => { value: 5 } })
+  end
+
   def test_canonicalize__legacy_formation
     manifest = { formation: [{ process: 'web', quantity: 5 }] }
     canonicalized = AppManifest.canonicalize(manifest)
