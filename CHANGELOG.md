@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+- Support canonicalization for env shorthands with numeric values(for example:  `{ "env": { "FOO": 5 } }`).
 
 ## [0.3.0] - 2017-06-18
 
