@@ -45,12 +45,14 @@ module AppManifest
       canonicalize_key(manifest, :env) do |env|
         Hash[
           env.map do |key, value|
-            if value.is_a?(String) || [true, false].include?(value)
-              value = {
-                value: value,
-              }
+            case value
+            when Hash
+              [key.to_s, value]
+            when String, TrueClass, FalseClass, Integer, Float
+              [key.to_s, { value: value }]
+            else
+              [key.to_s, value.to_s]
             end
-            [key.to_s, value]
           end
         ]
       end
