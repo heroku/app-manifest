@@ -135,4 +135,14 @@ class AppManifestTest < Minitest::Test
     )
     assert_equal(canonicalized, formation: {})
   end
+
+  def test_parse_invalid_json
+    app = AppManifest(fixture('broken.json'))
+
+    puts "app = #{app.inspect}"
+  end
+
+  def fixture(name)
+    File.read(File.expand_path("fixtures/#{name}", File.dirname(__FILE__)))
+  end
 end

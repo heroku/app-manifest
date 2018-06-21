@@ -1,0 +1,15 @@
+{
+  "env":{
+    "EMBER_ENV":{
+      "required":true
+    },
+    "name":"testing fixture app",
+    "description":"a test fixture app",
+    "repository":"https://example.com//ember-bootstrap-controls",
+    "buildpacks":[
+      {
+        "url":"https://example.com/buildpacks/testing"
+      }
+    ]
+  }
+}
