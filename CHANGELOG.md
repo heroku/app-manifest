@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+- `Manifest#environments?` helper method to provide if `environments` data is populated.
+
 ## [0.4.0] - 2017-11-28
 
 ### Fixed
@@ -25,7 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   it's serialization will not include nested `environments` data.
 
 ### Removed
-- `Manifest#manifest` was removed as it was superfluous and potentially 
+- `Manifest#manifest` was removed as it was superfluous and potentially
   confusing. `Manifest#to_hash` may be a suitable replacement.
 
 ## [0.2.1] - 2017-04-04
