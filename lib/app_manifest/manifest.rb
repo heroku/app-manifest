@@ -22,5 +22,9 @@ module AppManifest
       global_data = to_hash
       Environment.new(global_data.merge(scoped_data))
     end
+
+    def environments?
+      !environments.nil?
+    end
   end
 end
