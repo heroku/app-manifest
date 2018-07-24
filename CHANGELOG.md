@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [0.5.0] - 2018-07-24
+
 ### Added
 - `Manifest#environments?` helper method to provide if `environments` data is populated.
 
