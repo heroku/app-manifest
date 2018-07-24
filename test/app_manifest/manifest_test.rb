@@ -24,6 +24,7 @@ module AppManifest
       manifest = AppManifest::Manifest.new(hash)
       test_manifest = manifest.environment(:test)
       assert_equal(test_manifest.to_hash.fetch(:addons), [plan: 'a'])
+      assert_equal(manifest.environments?, true)
     end
 
     def test_environment__when_missing
@@ -31,6 +32,7 @@ module AppManifest
       manifest = AppManifest::Manifest.new(hash)
       foo_manifest = manifest.environment(:foo)
       assert_equal(foo_manifest.to_hash.fetch(:addons), [plan: 'a'])
+      assert_equal(manifest.environments?, false)
     end
 
     def test_environments
@@ -43,7 +45,7 @@ module AppManifest
     end
 
     def test_to_hash
-      hash = { 
+      hash = {
         name: 'foo',
         environments: {
           'test' => {
