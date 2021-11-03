@@ -11,6 +11,7 @@ module AppManifest
     private
 
     def self.do_validate(hash, env_name: nil)
+      raise InvalidManifest, "Expected object but got: #{hash.class}" unless hash.is_a?(Hash)
       hash.each do |key, value|
         case key.to_s
         when 'addons'
@@ -41,10 +42,10 @@ module AppManifest
     def self.build_key_name(key, index: nil, env_name: nil)
       name = []
       name << env_name if env_name
-      name << '[' if env_name
+      name << '[' unless env_name.nil?
       name << key
-      name << ']' if env_name
-      name << "[#{index}]" if index
+      name << ']' unless env_name.nil?
+      name << "[#{index}]" unless index.nil?
       name.join
     end
 
