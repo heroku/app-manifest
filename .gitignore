@@ -8,3 +8,6 @@
 /spec/reports/
 /tmp/
 app_manifest-*.gem
+
+*.iml
+/.idea/

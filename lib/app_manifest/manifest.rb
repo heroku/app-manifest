@@ -1,3 +1,5 @@
+require "app_manifest/manifest_validator"
+
 module AppManifest
   # A simple model-like wrapper around a manifest hash.
   class Manifest
@@ -13,6 +15,7 @@ module AppManifest
     end
 
     def initialize(hash)
+      AppManifest::ManifestValidator.validate!(hash)
       canonicalized = AppManifest.canonicalize(hash)
       super(canonicalized)
     end
