@@ -90,7 +90,7 @@ module AppManifest
       when Hash
         validate_addon_hash(key_name, value)
       else
-        raise InvalidManifest, "Expected string or object #{for_key(key, index: index, env_name: env)} " \
+        raise InvalidManifest, "Expected string or object #{for_key(key, index: index, env_name: env_name)} " \
         "but got: #{value.class}"
       end
     end
@@ -120,7 +120,7 @@ module AppManifest
         end
       when nil
       else
-        raise InvalidManifest, "Expected object #{for_key(key, env_name: env)} but got: #{value.class}"
+        raise InvalidManifest, "Expected object #{for_key(key, env_name: env_name)} but got: #{value.class}"
       end
     end
 
