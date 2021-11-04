@@ -9,9 +9,9 @@ module AppManifest
 
     attribute :environments, Hash[String => Environment], default: nil
 
-    def self.from_json(string)
+    def self.from_json(string, validate)
       hash = MultiJson.load(string)
-      new(hash)
+      new(hash, validate)
     end
 
     def initialize(hash, validate: true)
