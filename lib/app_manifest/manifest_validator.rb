@@ -97,6 +97,7 @@ module AppManifest
     end
 
     def self.validate_addon_hash(key_name, hash)
+      raise InvalidManifest, "Missing required key: plan" unless (hash.key?("plan") or hash.key?(:plan))
       hash.each do |key, value|
         case key.to_s
         when 'plan'

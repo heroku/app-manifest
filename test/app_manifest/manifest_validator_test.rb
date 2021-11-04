@@ -83,6 +83,23 @@ module AppManifest
       end
     end
 
+    def test_validate_name__max_length_valid
+      hash = valid_manifest_hash
+      hash["name"] = "a" * 30
+      assert_silent do
+        ManifestValidator.validate!(hash)
+      end
+    end
+
+    def test_validate_name__max_length_exceeded
+      hash = valid_manifest_hash
+      hash["name"] = "a" * 31
+      error = assert_raises(AppManifest::InvalidManifest) do
+        ManifestValidator.validate!(hash)
+      end
+      assert_match(/String must not exceed 30 characters for key: name/i, error.message)
+    end
+
     def test_validate_environment_manifest__valid
       hash = {
         "environments" => {
@@ -129,6 +146,41 @@ module AppManifest
         ManifestValidator.validate!(hash)
       end
       assert_match(/Expected array for key: addons but got: Hash/i, error.message)
+    end
+
+    def test_validate_addons_plan__required
+      hash = {
+        "addons" => [
+          {
+            "as": "string",
+            "options": {
+              "foo": "bar"
+            }
+          }
+        ]
+      }
+      error = assert_raises(AppManifest::InvalidManifest) do
+        ManifestValidator.validate!(hash)
+      end
+      assert_match(/Missing required key: plan/i, error.message)
+    end
+
+    def test_validate_addons_plan__nil
+      hash = {
+        "addons" => [
+          {
+            "plan": nil,
+            "as": "string",
+            "options": {
+              "foo": "bar"
+            }
+          }
+        ]
+      }
+      error = assert_raises(AppManifest::InvalidManifest) do
+        ManifestValidator.validate!(hash)
+      end
+      assert_match(/Missing required value for key: addons\[0\]\[plan\]/i, error.message)
     end
   end
 end
