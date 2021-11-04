@@ -20,21 +20,14 @@ module AppManifest
           end
         when 'buildpacks'
           validate_array(key, value, required: false, env_name: env_name)
+        when 'name', 'description', 'image', 'logo', 'repository', 'stack', 'success_url', 'website'
+          validate_string(key, value, required: false, env_name: env_name)
         when 'env'
           validate_env(key, value, env_name: env_name)
-        when 'name'
-          validate_string(key, value, required: false, max_length: 30, env_name: env_name)
-        when 'description', 'image', 'logo', 'repository', 'stack', 'success_url', 'website'
-          validate_string(key, value, required: false, env_name: env_name)
         when 'environments'
           validate_environments(key, value) if env_name.nil?
         when 'keywords'
-          validate_array(key, value, required: false, env_name: env_name) do |v, index: nil, env_name: nil|
-            validate_string(key, v, required: false, index: index, env_name: env_name)
-          end
-        when 'scripts', 'formation'
-        else
-          raise InvalidManifest, "Unknown key: #{build_key_name(key, env_name: env_name)}"
+          validate_array(key, value, required: false, env_name: env_name)
         end
       end
     end
@@ -68,14 +61,11 @@ module AppManifest
       end
     end
 
-    def self.validate_string(key, value, required: true, max_length: nil, index: nil, env_name: nil)
+    def self.validate_string(key, value, required: true, index: nil, env_name: nil)
       k = for_key(key, index: index, env_name: env_name)
       case value
       when String
         raise InvalidManifest, "String must not be empty #{k}" if required && value.empty?
-        if max_length && value.length > max_length
-          raise InvalidManifest, "String must not exceed #{max_length} characters #{k}"
-        end
       when nil
         raise InvalidManifest, "Missing required value #{k}" if required
       else

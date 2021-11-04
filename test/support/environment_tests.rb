@@ -4,7 +4,7 @@ module AppManifest
       environment = environment_class.new(
         name: 'my-awesome-app',
         description: 'super duper awesome',
-        keywords: %w[awesome 9000]
+        keywords: ['awesome', 9000]
       )
 
       assert_equal(environment.name, 'my-awesome-app')

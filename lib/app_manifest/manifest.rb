@@ -14,8 +14,8 @@ module AppManifest
       new(hash)
     end
 
-    def initialize(hash)
-      AppManifest::ManifestValidator.validate!(hash)
+    def initialize(hash, validate: true)
+      AppManifest::ManifestValidator.validate!(hash) if validate
       canonicalized = AppManifest.canonicalize(hash)
       super(canonicalized)
     end

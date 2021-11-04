@@ -83,21 +83,12 @@ module AppManifest
       end
     end
 
-    def test_validate_name__max_length_valid
+    def test_validate_name__valid_type
       hash = valid_manifest_hash
       hash["name"] = "a" * 30
       assert_silent do
         ManifestValidator.validate!(hash)
       end
-    end
-
-    def test_validate_name__max_length_exceeded
-      hash = valid_manifest_hash
-      hash["name"] = "a" * 31
-      error = assert_raises(AppManifest::InvalidManifest) do
-        ManifestValidator.validate!(hash)
-      end
-      assert_match(/String must not exceed 30 characters for key: name/i, error.message)
     end
 
     def test_validate_environment_manifest__valid
