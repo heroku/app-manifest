@@ -13,11 +13,11 @@ require "app_manifest/environment"
 require "app_manifest/manifest"
 
 # Create a new manifest from json string or a hash
-def AppManifest(input)
+def AppManifest(input, validate: true)
   if input.is_a?(Hash)
-    AppManifest::Manifest.new(input)
+    AppManifest::Manifest.new(input, validate: validate)
   elsif input.is_a?(String)
-    AppManifest::Manifest.from_json(input)
+    AppManifest::Manifest.from_json(input, validate: validate)
   end
 end
 

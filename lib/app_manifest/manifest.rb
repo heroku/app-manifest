@@ -1,3 +1,5 @@
+require "app_manifest/manifest_validator"
+
 module AppManifest
   # A simple model-like wrapper around a manifest hash.
   class Manifest
@@ -7,12 +9,13 @@ module AppManifest
 
     attribute :environments, Hash[String => Environment], default: nil
 
-    def self.from_json(string)
+    def self.from_json(string, validate)
       hash = MultiJson.load(string)
-      new(hash)
+      new(hash, validate)
     end
 
-    def initialize(hash)
+    def initialize(hash, validate: true)
+      AppManifest::ManifestValidator.validate!(hash) if validate
       canonicalized = AppManifest.canonicalize(hash)
       super(canonicalized)
     end

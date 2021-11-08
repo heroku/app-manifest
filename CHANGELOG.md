@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [1.0.0] - 2021-11-08
+
+### Added
+- `AppManifest::ManifestValidator` module performs basic type checking validation for a given manifest hash.
+  The Error `AppManifest::InvalidManifest` is raised if the manifest is invalid.
+
+### Changed
+- `AppManifest` now uses `AppManifest::ManifestValidator` to validate the manifest hash by default.
+  The `validate` named parameter can be set to `false` to disable this.
+
 ## [0.5.0] - 2018-07-24
 
 ### Added
